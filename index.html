@@ -251,7 +251,7 @@
           val = (stack.peek()).toString();
           switch (display_format) {
             case Formats.NORMAL:
-              val_string = normal_format(val);
+              val_string = (stack.peek()).toLocaleString("en-US", {minimumFractionDigits: 0, maximumFractionDigits: 0});
               break;
             case Formats.HEX:
               var temp_string = ("00000000" + (stack.peek()).toString(16).toUpperCase()).substr(-8);
