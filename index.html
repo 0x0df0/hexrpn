@@ -119,7 +119,8 @@
               <p class="button portrait_button">C</p>
             </td>
             <td class="portrait_button function_button" onclick="click_mod()">
-              <p class="button portrait_button">MOD</p>
+              <p id="portrait_mod" class="button portrait_button">MOD</p>
+              <p id="portrait_2scomp" class="button portrait_button" style="display: none">+/-</p>
             </td>
           </tr>
           <tr>
@@ -414,11 +415,13 @@
       
       function click_func() {
         if (alt_function) {
+          document.getElementById("portrait_mod").style.display = "block";
           document.getElementById("portrait_divide").style.display = "block";
           document.getElementById("portrait_multiply").style.display = "block";
           document.getElementById("portrait_subtract").style.display = "block";
           document.getElementById("portrait_add").style.display = "block";
 
+          document.getElementById("portrait_2scomp").style.display = "none";
           document.getElementById("portrait_or").style.display = "none";
           document.getElementById("portrait_xor").style.display = "none";
           document.getElementById("portrait_not").style.display = "none";
@@ -427,11 +430,13 @@
           alt_function = false;
         }
         else {
+          document.getElementById("portrait_mod").style.display = "none";
           document.getElementById("portrait_divide").style.display = "none";
           document.getElementById("portrait_multiply").style.display = "none";
           document.getElementById("portrait_subtract").style.display = "none";
           document.getElementById("portrait_add").style.display = "none";
 
+          document.getElementById("portrait_2scomp").style.display = "block";
           document.getElementById("portrait_or").style.display = "block";
           document.getElementById("portrait_xor").style.display = "block";
           document.getElementById("portrait_not").style.display = "block";
@@ -487,9 +492,14 @@
       }
       
       function click_mod() {
-        get_x_y();
-        stack.push(y % x);
-        show();
+        if (alt_function) {
+          click_2scomp();
+        }
+        else {
+          get_x_y();
+          stack.push(y % x);
+          show();
+        }
       }
       
       function click_or() {
@@ -507,6 +517,12 @@
       function click_not() {
         get_x();
         stack.push(~x);
+        show();
+      }
+      
+      function click_2scomp() {
+        get_x();
+        stack.push((~x) + 1);
         show();
       }
       
