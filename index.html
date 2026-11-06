@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, height-device-height, initial-scale=1, user-scalable=0">
-    
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=0">
+    
     <title>
       HexRPN Calculator
     </title>
@@ -11,7 +11,7 @@
     <style type="text/css">
       html, body {
         background-color: #000000; 
-        overflow: none
+        overflow: hidden;
         }
       table.t1 {
         width: 100%; 
@@ -29,7 +29,7 @@
         border-width: 1px; 
         border-color: #000000; 
         padding: 3px;
-        vertical-align: center;
+        vertical-align: middle;
         }
       td.display {
         width: 100%; 
@@ -105,7 +105,7 @@
               <p id="portrait_ln" class="button portrait_button">F</p>
             </td>
             <td class="portrait_button function_button" onclick="click_swap()">
-              <p id="portrait_inverse" class="button portrait_button"><i>x</i><><i>y</i></p>
+              <p id="portrait_inverse" class="button portrait_button"><i>x</i>&lt;&gt;<i>y</i></p>
             </td>
           </tr>
           <tr>
@@ -134,7 +134,7 @@
               <p class="button portrait_button">9</p>
             </td>
             <td class="portrait_button function_button" onclick="click_divide()">
-              <p id="portrait_divide" class="button portrait_button">&#x00F7</p>
+              <p id="portrait_divide" class="button portrait_button">&#x00F7;</p>
               <p id="portrait_or" class="button portrait_button" style="display: none">OR</p>
             </td>
           </tr>
@@ -149,7 +149,7 @@
               <p class="button portrait_button">6</p>
             </td>
             <td class="portrait_button function_button" onclick="click_multiply()">
-              <p id="portrait_multiply" class="button portrait_button">&#x00D7</p>
+              <p id="portrait_multiply" class="button portrait_button">&#x00D7;</p>
               <p id="portrait_xor" class="button portrait_button" style="display: none">XOR</p>
             </td>
           </tr>
@@ -164,7 +164,7 @@
               <p class="button portrait_button">3</p>
             </td>
             <td class="portrait_button function_button" onclick="click_subtract()">
-              <p id="portrait_subtract" class="button portrait_button">&#x2212</p>
+              <p id="portrait_subtract" class="button portrait_button">&#x2212;</p>
               <p id="portrait_not" class="button portrait_button" style="display: none">NOT</p>
             </td>
           </tr>
@@ -173,7 +173,7 @@
               <p class="button portrait_button">0</p>
             </td>
             <td class="portrait_button digit_button" onclick="click_clear()">
-              <p class="button portrait_button">&#x2190</p>
+              <p class="button portrait_button">&#x2190;</p>
             </td>
             <td class="portrait_button function_button" onclick="click_add()">
               <p id="portrait_add" class="button portrait_button">+</p>
@@ -249,7 +249,7 @@
       function show() {
         var val_string = display_string;
         if (display_mode) {
-          val = (stack.peek()).toString();
+          var val = (stack.peek()).toString();
           switch (display_format) {
             case Formats.NORMAL:
               val_string = (stack.peek()).toLocaleString("en-US", {minimumFractionDigits: 0, maximumFractionDigits: 0});
@@ -404,7 +404,9 @@
         }
         else {
           if (display_string != "0") {
-            display_string = display_string + val;
+            if (!hex) {
+              display_string = display_string + val;
+            }
           }
           else {
             display_string = val;
@@ -475,7 +477,7 @@
         }
         else {
           get_x_y();
-          stack.push(y * x);
+          stack.push(Math.imul(x, y));
           show();
         }
       }
